@@ -1,17 +1,64 @@
 var apiButton = document.getElementById('button');
 
 function hitApi() {
-    var requestUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid={28772289c59f5c8ee8bb358bf22e23be}";
-
+    //lat lon
+    var requestUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=51.50&lon=-0.127&appid=da19b83ebf45ed6902f1c6e45f186dfb";
+    //city
+    var requestUrl2 = "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=da19b83ebf45ed6902f1c6e45f186dfb"
+    
     fetch(requestUrl) 
-    .then( 
-        (response) => {
-            console.log(response);
-            return response.json(); 
-
-    }
+    .then((response) => {
+            const x = response.json();
+            console.log(x);
+            
+    }   
     );
+
+    fetch(requestUrl2)
+    .then((response) => {
+        const y = response.json();
+        console.log(y);
+    });
 }
 
-
 apiButton.addEventListener('click', hitApi);
+
+//every 3 hours...
+    //go through and find where date changes.
+        //each day as 8 iterations, 40 iterations. easy math
+        
+
+//is dt just a timestamp to be formatted?
+//dt_text - date
+
+//wind object speed - wind
+
+//weather.description - for icon (list.weather.icon) with a template literal? -- how do i use that? do i need to save them locally?
+    //using icon urls?  
+        // https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+            // https://openweathermap.org/img/wn/10d@2x.png
+                //
+
+//main.humidity
+
+//what unit is main.temp in?
+    //kelvin by default
+    //can be changed to imperial in fetch url
+
+//date, temp, wind speed, humidity, icon representation (in weather); 
+
+//submit event listener for textaera;
+    //how to insert that value into geocoder API url call? template litearl and a variable?
+        // var x = search
+        //url = ` http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=da19b83ebf45ed6902f1c6e45f186dfb ` 
+
+
+    //store searches in local storage...
+        //for loop to populate those items
+    
+
+// search form takes value, hits geocoder API with city name.
+//that returns coordinates, take them, hit forecast API with imperial unit parameter set for temperature.
+//use that returned information.
+
+//eventually change button to the search functionality. funciton will probably take an argument of 'search.'
