@@ -1,27 +1,40 @@
 var apiButton = document.getElementById('button');
 
 function hitApi() {
-    //lat lon
-    var requestUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=51.50&lon=-0.127&appid=da19b83ebf45ed6902f1c6e45f186dfb";
-    //city
-    var requestUrl2 = "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=da19b83ebf45ed6902f1c6e45f186dfb"
-    
-    fetch(requestUrl) 
-    .then((response) => {
-            const x = response.json();
-            console.log(x);
-            
-    }   
-    );
+    //forecast with lat lon API
+    var latLonUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=51.50&lon=-0.127&appid=da19b83ebf45ed6902f1c6e45f186dfb";
+    //geocoding URL
+    var forecastUrl = "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=da19b83ebf45ed6902f1c6e45f186dfb"
 
-    fetch(requestUrl2)
+//city is passed in first for geocoding API.
+//that returns lat and lot values that can be used for the forecast API.
+
+var lat = 0;
+var lon = 0;
+console.log(lat, lon)
+
+var city = "London"; //get from 
+
+//city/geocoding first
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=da19b83ebf45ed6902f1c6e45f186dfb`) 
     .then((response) => {
-        const y = response.json();
-        console.log(y);
+        return response.json();  
+    })
+    .then((data) => {
+        console.log("Woo!", data[0].lat, data[0].lon);
+        lat = data[0].lat; //set the lat and lon variables to use in the forecast API call
+        lon = data[0].lon;
+        console.log(`lat lon: ${lat} ${lon}`); 
     });
-}
 
+    fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
+
+
+
+}
 apiButton.addEventListener('click', hitApi);
+
+
 
 //every 3 hours...
     //go through and find where date changes.
