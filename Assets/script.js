@@ -1,4 +1,7 @@
 var apiButton = document.getElementById('button');
+var citySearch = document.getElementById('search');
+
+console.log(citySearch.value);
 
 function hitApi() {
     //forecast with lat lon API
@@ -13,7 +16,7 @@ var lat = 0;
 var lon = 0;
 console.log(lat, lon);
 
-var city = "Minneapolis"; //get from textarea at some point
+var city = citySearch.value; //get from textarea at some point
 
 //city/geocoding first
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=da19b83ebf45ed6902f1c6e45f186dfb`) 
@@ -25,20 +28,24 @@ var city = "Minneapolis"; //get from textarea at some point
         lat = data[0].lat; //set the lat and lon variables to use in the forecast API call
         lon = data[0].lon;
         console.log(`lat lon: ${lat} ${lon}`); 
-        
+            //forecast
         fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
         .then((response) => {
             return response.json();
         })
         .then((data) => {
+            console.log(data);
+            console.log(data.list[0].dt_txt); //splice date at the space? " "
             console.log(data.list[0].main.temp);
-        })
+        });
     });
 
 
 
 }
+
 apiButton.addEventListener('click', hitApi);
+//citySearch.addEventListener('submit', hitApi);
 
 
 
@@ -60,9 +67,7 @@ apiButton.addEventListener('click', hitApi);
 
 //main.humidity
 
-//what unit is main.temp in?
-    //kelvin by default
-    //can be changed to imperial in fetch url
+
 
 //date, temp, wind speed, humidity, icon representation (in weather); 
 
