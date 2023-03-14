@@ -11,9 +11,9 @@ function hitApi() {
 
 var lat = 0;
 var lon = 0;
-console.log(lat, lon)
+console.log(lat, lon);
 
-var city = "London"; //get from 
+var city = "Minneapolis"; //get from textarea at some point
 
 //city/geocoding first
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=da19b83ebf45ed6902f1c6e45f186dfb`) 
@@ -25,9 +25,15 @@ var city = "London"; //get from
         lat = data[0].lat; //set the lat and lon variables to use in the forecast API call
         lon = data[0].lon;
         console.log(`lat lon: ${lat} ${lon}`); 
+        
+        fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+        })
     });
-
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
 
 
 
