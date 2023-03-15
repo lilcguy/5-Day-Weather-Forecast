@@ -5,20 +5,20 @@ var citySearch = document.getElementById('search');
 function createCard (weatherData, index, divValue) {
     var div = document.getElementById(`${divValue}`);
 
-    var date = document.createElement('h6');
+    var date = document.createElement('h3');
         date.innerHTML = weatherData.list[index].dt_txt;
         div.appendChild(date);
 
     var icon = document.createElement('img');
         icon.src=`https://openweathermap.org/img/wn/${weatherData.list[index].weather[0].icon}@2x.png`
             div.appendChild(icon);
-    var temp = document.createElement('h6');
+    var temp = document.createElement('h3');
         temp.innerHTML = weatherData.list[index].main.temp;
             div.appendChild(temp);
-    var wind = document.createElement('h6');
+    var wind = document.createElement('h3');
         wind.innerHTML = weatherData.list[index].wind.speed;
             div.appendChild(wind);
-    var humid = document.createElement('h6');
+    var humid = document.createElement('h3');
         humid.innerHTML = weatherData.list[index].main.humidity;
             div.appendChild(humid);
 }
@@ -81,7 +81,7 @@ var city = citySearch.value; //get from textarea at some point
             createCard(data, 8, 2);
             createCard(data, 16, 3);
             createCard(data, 24, 4);
-            createCard
+            createCard(data, 32, 5);
         });
     });
 
