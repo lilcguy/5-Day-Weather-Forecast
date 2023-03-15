@@ -1,5 +1,6 @@
 var apiButton = document.getElementById('button');
 var citySearch = document.getElementById('search');
+var arr = [];
 
 //function to create card
 function createCard (weatherData, index, divValue) {
@@ -22,6 +23,28 @@ function createCard (weatherData, index, divValue) {
         humid.innerHTML = weatherData.list[index].main.humidity;
             div.appendChild(humid);
 }
+//for current card only sad face
+function createCurrentCard(weatherData) {
+    var div = document.getElementById("0");
+
+    var date = document.createElement('h3');
+        date.innerHTML = new Date();
+        div.appendChild(date);
+
+    var icon = document.createElement('img');
+        icon.src=`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
+            div.appendChild(icon);
+    var temp = document.createElement('h3');
+        temp.innerHTML = weatherData.main.temp;
+            div.appendChild(temp);
+    var wind = document.createElement('h3');
+        wind.innerHTML = weatherData.wind.speed;
+            div.appendChild(wind);
+    var humid = document.createElement('h3');
+        humid.innerHTML = weatherData.main.humidity;
+            div.appendChild(humid);
+
+}
 
 
 console.log(citySearch.value);
@@ -39,7 +62,24 @@ var lat = 0;
 var lon = 0;
 console.log(lat, lon);
 
-var city = citySearch.value; //get from textarea at some point
+var city = citySearch.value; 
+
+//var arr = [];
+
+arr.push(city);
+localStorage.setItem("pastSearch", JSON.stringify(arr));
+//localStorage
+
+var pastSearches = JSON.parse(localStorage.getItem("pastSearch"));
+console.log(pastSearches);
+
+for (let i=0; i < pastSearches.length; i++) {
+    var past = document.createElement('h5');
+    past.innerHTML = pastSearches[i];
+}
+
+
+
 
 //current
 // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
@@ -66,6 +106,7 @@ var city = citySearch.value; //get from textarea at some point
            return response.json();
         }).then((data) => {
             console.log(data);
+            createCurrentCard(data);
         });
             //forecast
         fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
@@ -78,10 +119,10 @@ var city = citySearch.value; //get from textarea at some point
             //console.log(data.list[0].main.temp);
             //console.log(data.list[0].weather[0].icon);
             createCard(data, 0, 1);
-            createCard(data, 8, 2);
-            createCard(data, 16, 3);
-            createCard(data, 24, 4);
-            createCard(data, 32, 5);
+            createCard(data, 11, 2);
+            createCard(data, 19, 3);
+            createCard(data, 27, 4);
+            createCard(data, 35, 5);
         });
     });
 
@@ -137,3 +178,5 @@ apiButton.addEventListener('click', hitApi);
 
 //if divisible by 8
 // % 
+
+//add to array, stringify, add to local storage
