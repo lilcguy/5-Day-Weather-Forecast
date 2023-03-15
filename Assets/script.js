@@ -1,6 +1,16 @@
 var apiButton = document.getElementById('button');
 var citySearch = document.getElementById('search');
-var arr = [];
+
+var pastSearchesDiv = document.getElementById('past');
+
+// var arr = JSON.parse(localStorage.getItem("pastSearch"));
+// console.log(arr);
+
+// for (let i=0; i < pastSearches.length; i++) {
+//     var past = document.createElement('h4');
+//     past.innerHTML = pastSearches[i];
+//     pastSearchesDiv.appendChild(past);
+// }
 
 //function to create card
 function createCard (weatherData, index, divValue) {
@@ -63,20 +73,22 @@ var lon = 0;
 console.log(lat, lon);
 
 var city = citySearch.value; 
+// var arr = [];
 
-//var arr = [];
+// arr.push(city);
+// localStorage.setItem("pastSearch", JSON.stringify(arr));
+// //localStorage
 
-arr.push(city);
-localStorage.setItem("pastSearch", JSON.stringify(arr));
-//localStorage
+// var pastSearches = JSON.parse(localStorage.getItem("pastSearch"));
+// console.log(pastSearches);
 
-var pastSearches = JSON.parse(localStorage.getItem("pastSearch"));
-console.log(pastSearches);
+// for (let i=0; i < pastSearches.length; i++) {
+//     var past = document.createElement('h4');
+//     past.innerHTML = pastSearches[i];
+//     pastSearchesDiv.appendChild(past);
 
-for (let i=0; i < pastSearches.length; i++) {
-    var past = document.createElement('h5');
-    past.innerHTML = pastSearches[i];
-}
+
+// }
 
 
 
@@ -118,7 +130,7 @@ for (let i=0; i < pastSearches.length; i++) {
             //console.log(data.list[0].dt_txt); //splice date at the space? " "
             //console.log(data.list[0].main.temp);
             //console.log(data.list[0].weather[0].icon);
-            createCard(data, 0, 1);
+            createCard(data, 3, 1);
             createCard(data, 11, 2);
             createCard(data, 19, 3);
             createCard(data, 27, 4);
