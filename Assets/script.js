@@ -1,6 +1,29 @@
 var apiButton = document.getElementById('button');
 var citySearch = document.getElementById('search');
 
+//function to create card
+function createCard (weatherData, index, divValue) {
+    var div = document.getElementById(`${divValue}`);
+
+    var date = document.createElement('h6');
+        date.innerHTML = weatherData.list[index].dt_txt;
+        div.appendChild(date);
+
+    var icon = document.createElement('img');
+        icon.src=`https://openweathermap.org/img/wn/${weatherData.list[index].weather[0].icon}@2x.png`
+            div.appendChild(icon);
+    var temp = document.createElement('h6');
+        temp.innerHTML = weatherData.list[index].main.temp;
+            div.appendChild(temp);
+    var wind = document.createElement('h6');
+        wind.innerHTML = weatherData.list[index].wind.speed;
+            div.appendChild(wind);
+    var humid = document.createElement('h6');
+        humid.innerHTML = weatherData.list[index].main.humidity;
+            div.appendChild(humid);
+}
+
+
 console.log(citySearch.value);
 
 function hitApi() {
@@ -51,9 +74,14 @@ var city = citySearch.value; //get from textarea at some point
         })
         .then((data) => {
             console.log(data);
-            console.log(data.list[0].dt_txt); //splice date at the space? " "
-            console.log(data.list[0].main.temp);
-            console.log(data.list[0].weather[0].icon);
+            //console.log(data.list[0].dt_txt); //splice date at the space? " "
+            //console.log(data.list[0].main.temp);
+            //console.log(data.list[0].weather[0].icon);
+            createCard(data, 0, 1);
+            createCard(data, 8, 2);
+            createCard(data, 16, 3);
+            createCard(data, 24, 4);
+            createCard
         });
     });
 
@@ -106,3 +134,6 @@ apiButton.addEventListener('click', hitApi);
 
 //array nums:
 //0, 8, 16, 24, 32
+
+//if divisible by 8
+// % 
