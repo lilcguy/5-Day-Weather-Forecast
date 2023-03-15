@@ -12,7 +12,9 @@ var pastSearchesDiv = document.getElementById('past');
 //     pastSearchesDiv.appendChild(past);
 // }
 
-//function to create card
+//function for local storage handling
+
+//function to create card of wetaher data
 function createCard (weatherData, index, divValue) {
     var div = document.getElementById(`${divValue}`);
 
