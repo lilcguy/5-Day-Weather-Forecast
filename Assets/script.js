@@ -6,7 +6,7 @@ var pastSearchesDiv = document.getElementById('past');
 let dummyArray = ['minneapolis', 'chicago', 'davenport'];
 let dummyCity = 'bobert';
 
-//do local storage stuff, delete obsolete dirREADME file and submit.
+
 
 //function for local storage handling
     
