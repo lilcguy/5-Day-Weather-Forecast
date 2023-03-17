@@ -3,8 +3,7 @@ var citySearch = document.getElementById('search');
 
 var pastSearchesDiv = document.getElementById('past');
 
-let dummyArray = ['minneapolis', 'chicago', 'davenport'];
-let dummyCity = 'bobert';
+
 
 
 
