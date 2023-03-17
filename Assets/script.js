@@ -90,9 +90,9 @@ console.log(citySearch.value);
 
 function hitApi() {
     //forecast with lat lon API
-    var latLonUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=51.50&lon=-0.127&appid=da19b83ebf45ed6902f1c6e45f186dfb";
+    var latLonUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=51.50&lon=-0.127&appid=da19b83ebf45ed6902f1c6e45f186dfb";
     //geocoding URL
-    var forecastUrl = "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=da19b83ebf45ed6902f1c6e45f186dfb"
+    var forecastUrl = "https://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=da19b83ebf45ed6902f1c6e45f186dfb"
 
 //city is passed in first for geocoding API.
 //that returns lat and lot values that can be used for the forecast API.
@@ -108,7 +108,7 @@ var city = citySearch.value;
 localStorageHandler(city);
 
 //city/geocoding first
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=da19b83ebf45ed6902f1c6e45f186dfb`) 
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=da19b83ebf45ed6902f1c6e45f186dfb`) 
     .then((response) => {
         return response.json();  
     })
@@ -127,7 +127,7 @@ localStorageHandler(city);
             createCurrentCard(data);
         });
             //forecast
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
         .then((response) => {
             return response.json();
         })
