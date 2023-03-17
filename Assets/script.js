@@ -3,16 +3,44 @@ var citySearch = document.getElementById('search');
 
 var pastSearchesDiv = document.getElementById('past');
 
-// var arr = JSON.parse(localStorage.getItem("pastSearch"));
-// console.log(arr);
+let dummyArray = ['minneapolis', 'chicago', 'davenport'];
+let dummyCity = 'bobert';
 
-// for (let i=0; i < pastSearches.length; i++) {
-//     var past = document.createElement('h4');
-//     past.innerHTML = pastSearches[i];
-//     pastSearchesDiv.appendChild(past);
-// }
+//do local storage stuff, delete obsolete dirREADME file and submit.
 
 //function for local storage handling
+    
+function localStorageHandler(city) {
+    
+    //if statement: if something exists at this key, get it out and add to it.
+        //if it returns false or nothing is in there, create it and add to it.
+
+    if (localStorage.getItem("pastSearches")) {
+        console.log("relevant localStorage Found. Working...")
+        let searches = localStorage.getItem("pastSearches"); //take it out.
+        console.log(searches); //returns string
+        let searchesArray = searches.split(','); //split the string at commas, returns an array.
+        console.log(searchesArray); 
+        searchesArray.push(city); //add the city in the parameters to the array.
+
+        var pastSearchElement = document.createElement('li'); //create the element on the page with the city.
+        pastSearchElement.innerHTML = city;
+        pastSearchesDiv.appendChild(pastSearchElement);
+        //console.log(city);
+        localStorage.setItem("pastSearches", searchesArray); //put the array back in with the new city added to it.
+
+        
+    } else {
+        console.log("nothing found in localStorage. adding to it.");
+        var pastSearchElement = document.createElement('li'); //create the element on the page with the city.
+        pastSearchElement.innerHTML = city;
+        pastSearchesDiv.appendChild(pastSearchElement);
+        localStorage.setItem('pastSearches', city);
+    }
+
+}
+
+//localStorageHandler(dummyCity);
 
 //function to create card of wetaher data
 function createCard (weatherData, index, divValue) {
@@ -26,13 +54,13 @@ function createCard (weatherData, index, divValue) {
         icon.src=`https://openweathermap.org/img/wn/${weatherData.list[index].weather[0].icon}@2x.png`
             div.appendChild(icon);
     var temp = document.createElement('h3');
-        temp.innerHTML = weatherData.list[index].main.temp;
+        temp.innerHTML = `Temp: ${weatherData.list[index].main.temp}`;
             div.appendChild(temp);
     var wind = document.createElement('h3');
-        wind.innerHTML = weatherData.list[index].wind.speed;
+        wind.innerHTML = `Wind speed: ${weatherData.list[index].wind.speed}`;
             div.appendChild(wind);
     var humid = document.createElement('h3');
-        humid.innerHTML = weatherData.list[index].main.humidity;
+        humid.innerHTML = `Humidity: ${weatherData.list[index].main.humidity}`;
             div.appendChild(humid);
 }
 //for current card only sad face
@@ -47,13 +75,13 @@ function createCurrentCard(weatherData) {
         icon.src=`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
             div.appendChild(icon);
     var temp = document.createElement('h3');
-        temp.innerHTML = weatherData.main.temp;
+        temp.innerHTML = `Temp: ${weatherData.main.temp}`;
             div.appendChild(temp);
     var wind = document.createElement('h3');
-        wind.innerHTML = weatherData.wind.speed;
+        wind.innerHTML = `Wind speed: ${weatherData.wind.speed}`;
             div.appendChild(wind);
     var humid = document.createElement('h3');
-        humid.innerHTML = weatherData.main.humidity;
+        humid.innerHTML = `Humidity: ${weatherData.main.humidity}`;
             div.appendChild(humid);
 
 }
@@ -75,33 +103,10 @@ var lon = 0;
 console.log(lat, lon);
 
 var city = citySearch.value; 
-// var arr = [];
 
-// arr.push(city);
-// localStorage.setItem("pastSearch", JSON.stringify(arr));
-// //localStorage
+//localStorage handling funciton
 
-// var pastSearches = JSON.parse(localStorage.getItem("pastSearch"));
-// console.log(pastSearches);
-
-// for (let i=0; i < pastSearches.length; i++) {
-//     var past = document.createElement('h4');
-//     past.innerHTML = pastSearches[i];
-//     pastSearchesDiv.appendChild(past);
-
-
-// }
-
-
-
-
-//current
-// fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=da19b83ebf45ed6902f1c6e45f186dfb`)
-// .then((response) => {
-//     return response.json();
-// }).then((data) => {
-//     console.log("CURRENT WEATHER: " + data);
-// });
+localStorageHandler(city);
 
 //city/geocoding first
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=da19b83ebf45ed6902f1c6e45f186dfb`) 
@@ -145,9 +150,10 @@ var city = citySearch.value;
 }
 
 apiButton.addEventListener('click', hitApi);
-//citySearch.addEventListener('submit', hitApi);
 
 
+
+// just thinking below this point. // 
 
 //every 3 hours...
     //go through and find where date changes.
